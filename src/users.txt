@@ -1,0 +1,7 @@
+joel,Admin,123,123,0,10,
+Maria,Admin,1234,1234,0,10,
+Pedro,Admin,12345,12345,0,10,
+juan1,User,321,321,0,4,
+juan2,User,322,322,0,4,
+juan3,User,333,333,0,4,
+pedro,User,678,678,3,4,1984|La Odisea|Don Quijote de la Mancha

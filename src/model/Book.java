@@ -5,12 +5,24 @@ public class Book {
     private String title;
     private String author;
     private String genre;
+    private String status;
+
+    
+
+    public Book(String isbn, String title, String author, String genre, String status) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.status = status;
+    }
 
     public Book(String isbn, String title, String author, String genre) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.genre = genre;
+        this.status= "Disponible";
     }
 
     public String getIsbn() {
@@ -45,12 +57,23 @@ public class Book {
         this.genre = genre;
     }
 
-    @Override
-    public String toString() {
-        return "Book [isbn=" + isbn + ", title=" + title + ", author=" + author + ", genre=" + genre + "]";
+
+    public String getStatus() {
+        return status;
     }
 
-    
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
+    @Override
+    public String toString() {
+        return "Book [isbn=" + isbn + ", title=" + title + ", author=" + author + ", genre=" + genre + ", status="
+                + status + "]";
+    }
+    
+    
+    
+    
     
 }

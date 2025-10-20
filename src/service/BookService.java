@@ -1,18 +1,46 @@
 package service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Book;
+import util.NotFoundException;
 
 public class BookService {
     private List<Book> books;
     public BookService(){
-        this.books = new ArrayList<>();
+
+        books = new ArrayList<>();
+        
+        try (var br = new BufferedReader(new FileReader("books.txt"))) {
+            String line;
+            while ((line= br.readLine()) != null) {
+                var bookData= line.split(",");
+                var book= new Book(
+                    bookData[0], bookData[1], bookData[2],
+                    bookData[3], bookData[4]
+                );
+                books.add(book);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: "+ e );
+        }
     }
 
     public void getAll(){
         for (Book book : books) {
+            System.out.println(book);
+        }
+    }
+
+    public void getAllAvaliable(){
+        for (var book : books) {
+            if (book.getStatus().equals("Prestado")) {
+                continue;
+            }
             System.out.println(book);
         }
     }
@@ -22,26 +50,56 @@ public class BookService {
                 return book;
             }
         }
-       return null;
+       throw new NotFoundException("No se encontro el libro con isbn: " + isbn);
+    }
+
+    public Book getBookByTitle(String title){
+        for (var book : books) {
+            if (book.getTitle().equals(title)) {
+                return book;
+            }
+        }
+       throw new NotFoundException("No se encontro el libro con titulo: " + title);
     }
 
     public void addBook(Book book){
-        var foundBook = getBookByIsbn(book.getIsbn());
-        if (foundBook != null) {
-            System.out.println("Ya se encontró un libro con ese isbn");
-        }else{
+       
+        try {
+            getBookByIsbn(book.getIsbn());
+        } catch (Exception e) {
             books.add(book);
             System.out.println("Operacion exitosa");
         }
+                
+        
     }
     public void removeBook(String isbn){
-        var  bookToDelete = getBookByIsbn(isbn);
+       
        try {
+         var  bookToDelete = getBookByIsbn(isbn);
          books.remove(bookToDelete);
-        System.out.println("Operacion exitosa");
+         System.out.println("Operacion exitosa");
        } catch (Exception e) {
-        System.out.println("Un error al eliminar: " + e);
+        System.out.println(e.getMessage());
        }
+    
     }
         
+     public void saveBooksData(){
+        try (FileWriter writer = new FileWriter("books.txt")) {
+            for (var book : books) {
+                writer.write(
+                    String.format("%s,%s,%s,%s,%s\n",
+                    book.getIsbn(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getGenre(),
+                    book.getStatus()
+                    )
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("Error guardando los datos de los usuarios");
+        }
+    }
 }

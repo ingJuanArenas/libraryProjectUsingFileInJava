@@ -1,0 +1,5 @@
+978-0140449136,La Odisea,Homero,Epopeya,Prestado
+978-8437604947,Don Quijote de la Mancha,Miguel de Cervantes,Novela,Prestado
+978-0307474278,1984,George Orwell,Ciencia Ficción,Prestado
+978-8491050294,Cien años de soledad,Gabriel García Márquez,Realismo mágico,Disponible
+978-0061120084,Matar a un ruiseñor,Harper Lee,Drama,Disponible
