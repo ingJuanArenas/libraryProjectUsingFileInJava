@@ -1,7 +1,6 @@
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import model.Book;
 import model.User;
 import service.AdminService;
 import service.LibraryService;
